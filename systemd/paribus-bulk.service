@@ -12,7 +12,7 @@ Group=ubuntu
 Environment=APP_ENV=production
 # Use Gunicorn with Uvicorn workers for a production-grade process manager.
 # Bind to the port expected by the upstream nginx configuration.
-ExecStart=/usr/bin/env poetry run gunicorn -k uvicorn.workers.UvicornWorker "app.main:app" \
+ExecStart=/home/ubuntu/.local/bin/poetry run gunicorn -k uvicorn.workers.UvicornWorker "app.main:app" \
 	--bind 0.0.0.0:7103 \
 	--workers 4 \
 	--log-level info \
