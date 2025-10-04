@@ -1,0 +1,181 @@
+[project]
+name = "paribus-hospital-directory"
+version = "0.1.0"
+description = ""
+authors = [{ name = "rajeev", email = "rajeev@prodot.in" }]
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "fastapi (>=0.114.2,<0.115.0)",
+    "uvicorn[standard] (>=0.30.6,<0.31.0)",
+    "gunicorn (>=20.1.0,<21.0.0)",
+    "python-multipart (>=0.0.9,<0.0.10)",
+    "httpx (>=0.27.2,<0.28.0)",
+    "pydantic-settings (>=2.3.4,<3.0.0)",
+]
+
+[dependency-groups]
+dev = [
+    "ruff (>=0.13.3,<0.14.0)",
+    "pytest (>=8.3.3,<9.0.0)",
+    "pytest-asyncio (>=0.23.8,<0.24.0)",
+]
+
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+
+[tool.ruff]
+# Base configuration
+line-length = 120
+target-version = "py312"
+extend-exclude = ["__init__.py"]
+
+# Linting configuration
+[tool.ruff.lint]
+select = ["E", "F", "I", "W", "N", "B", "C4", "UP"]
+ignore = ["E501", "E203"]  # line too long, whitespace before ':'
+
+# Format configuration
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+line-ending = "auto"
+
+[tool.ruff.lint.isort]
+known-first-party = [
+    "conf",
+    "interface",
+    "accounts",
+    "harvest",
+    "gates",
+    "panels",
+]
+known-third-party = ["django", "rest_framework"]
+section-order = [
+    "future",
+    "standard-library",
+    "third-party",
+    "first-party",
+    "local-folder",
+]
+# Removing lines-between-types as it's ignored with force-sort-within-sections=true
+force-sort-within-sections = true
+
+# Per-file ignores
+[tool.ruff.lint.per-file-ignores]
+"__init__.py" = ["F401"] # unused imports in __init__.py
+
+[tool.pylint]
+disable = [
+    "unused-argument",
+    "dangerous-default-value",
+    "missing-docstring",
+    "invalid-name",
+    "too-few-public-methods",
+    "too-many-arguments",
+    "too-many-locals",
+    "too-many-branches",
+    "too-many-statements",
+    "too-many-instance-attributes",
+    "too-many-public-methods",
+    "too-many-lines",
+    "too-many-ancestors",
+    "too-many-function-args",
+    "too-many-function-args",
+    "too-many-return-statements",
+    "too-many-boolean-expressions",
+    "too-many-arguments",
+    "too-many-locals",
+    "too-many-branches",
+    "too-many-statements",
+    "too-many-instance-attributes",
+    "too-many-public-methods",
+    "too-many-lines",
+    "too-many-ancestors",
+    "too-many-function-args",
+    "too-many-function-args",
+    "too-many-return-statements",
+    "too-many-boolean-expressions",
+    "too-many-arguments",
+    "too-many-locals",
+    "too-many-branches",
+    "too-many-statements",
+    "too-many-instance-attributes",
+    "too-many-public-methods",
+    "too-many-lines",
+    "too-many-ancestors",
+    "too-many-function-args",
+    "too-many-function-args",
+    "too-many-return-statements",
+    "too-many-boolean-expressions",
+    "too-many-arguments",
+    "too-many-locals",
+    "too-many-branches",
+    "too-many-statements",
+    "too-many-instance-attributes",
+    "too-many-public-methods",
+    "too-many-lines",
+    "too-many-ancestors",
+    "too-many-function-args",
+    "too-many-function-args",
+    "too-many-return-statements",
+    "too-many-boolean-expressions",
+    "too-many-arguments",
+    "too-many-locals",
+    "too-many-branches",
+    "too-many-statements",
+    "too-many-instance-attributes",
+    "too-many-public-methods",
+    "too-many-lines",
+    "too-many-ancestors",
+    "too-many-function-args",
+    "too-many-function-args",
+    "too-many-return-statements",
+    "too-many-boolean-expressions",
+    "too-many-arguments",
+    "too-many-locals",
+    "too-many-branches",
+    "too-many-statements",
+    "too-many-instance-attributes",
+    "too-many-public-methods",
+    "too-many-lines",
+    "too-many-ancestors",
+    "too-many-function-args",
+    "too-many-function-args",
+    "too-many-return-statements",
+    "too-many-boolean-expressions",
+    "invalid-str-returned",
+    "ungrouped-imports",
+]
+max-line-length = 120
+ignore = [
+    "tests/*",
+    "docs/*",
+    "build/*",
+    "dist/*",
+    "venv/*",
+    "env/*",
+    "site/*",
+    "lib/*",
+    "bin/*",
+    "include/*",
+    "share/*",
+    "var/*",
+    "tmp/*",
+    "usr/*",
+    "opt/*",
+    "srv/*",
+    "root/*",
+    "run/*",
+    "mnt/*",
+    "media/*",
+    "lost+found/*",
+    "home/*",
+    "etc/*",
+    "dev/*",
+    "boot/*",
+    "sys",
+]
