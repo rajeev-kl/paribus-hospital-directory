@@ -39,18 +39,21 @@ logger = logging.getLogger(__name__)
 async def lifespan(_: FastAPI):
     settings = get_settings()
     logger.info(
-        "Starting bulk processor with base_url=%s, row_limit=%s",
-        settings.hospital_directory_api_base_url,
-        settings.batch_size_limit,
-    )
+            "Starting bulk processor with base_url=%s, row_limit=%s, root_path=%s",
+            settings.hospital_directory_api_base_url,
+            settings.batch_size_limit,
+            settings.root_path or "/",
+        )
     yield
 
 
+_settings = get_settings()
 app = FastAPI(
     title="Paribus Hospital Bulk Processor",
     description="Bulk CSV ingestion service that feeds the Hospital Directory API.",
     version="0.1.0",
     lifespan=lifespan,
+    root_path=_settings.root_path,  # ensures /docs and /openapi.json work behind a proxy prefix
 )
 
 app.include_router(bulk_router)
