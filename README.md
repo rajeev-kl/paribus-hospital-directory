@@ -54,6 +54,14 @@ poetry run uvicorn app.main:app --host 0.0.0.0 --port 8000
 poetry run gunicorn app.main:app -k uvicorn.workers.UvicornWorker --bind 0.0.0.0:8000
 ```
 
+Deployed environment (behind `loop.prodot.in`):
+
+- Base URL: `https://loop.prodot.in/paribus/`
+- Health check: `GET https://loop.prodot.in/paribus/`
+- Bulk upload: `POST https://loop.prodot.in/paribus/hospitals/bulk`
+- Batch status: `GET https://loop.prodot.in/paribus/hospitals/bulk/{batch_id}`
+- Resume batch: `POST https://loop.prodot.in/paribus/hospitals/bulk/{batch_id}/resume`
+
 ## API Usage
 
 `POST /hospitals/bulk`
@@ -90,6 +98,33 @@ Typical response:
 ```
 
 If activation fails, `batch_activated` becomes `false` and `activation_error` describes the upstream issue while row-level results are preserved.
+
+## Available routes
+
+This service exposes the following HTTP endpoints.
+
+- POST /hospitals/bulk
+  - Description: Upload a CSV (multipart/form-data) with header `name,address,phone` to create a batch of hospitals.
+  - Form field: `file` → CSV file
+  - Limits: configurable batch size (default 20)
+  - Example:
+    ```bash
+    http --form POST :8000/hospitals/bulk file@./sample.csv
+    ```
+
+    ```bash
+    # Deployed instance
+    http --form POST https://loop.prodot.in/paribus/hospitals/bulk file@./sample.csv
+    ```
+
+- OpenAPI / interactive docs (provided by FastAPI)
+  - GET /docs — Swagger UI (interactive)
+  - GET /redoc — ReDoc UI
+  - GET /openapi.json — OpenAPI schema JSON
+
+Notes
+- If your deployment exposes additional endpoints (health/readiness, metrics, or a root status endpoint) those will appear in the OpenAPI schema and in the interactive docs above.
+- Use the OpenAPI JSON (`/openapi.json`) or Swagger UI (`/docs`) to inspect the exact request/response schemas and any additional routes that may be present in your running instance.
 
 ## Testing
 
